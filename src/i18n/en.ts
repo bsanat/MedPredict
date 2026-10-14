@@ -12,7 +12,7 @@ export const en: Copy = {
   demo: 'Demo mode',
   real: 'API connection',
   unconfigured: 'Mode not configured',
-  hero: ['Today’s data.', 'A prediction one step ahead.'],
+  hero: ["Predicting medical", "measurements"],
   intro: 'An educational system for predicting medical measurements. Enter data and explore how prediction works.',
   goToForm: 'Go to the form',
   steps: [
@@ -65,6 +65,117 @@ export const en: Copy = {
   validationSummary: 'Check the highlighted fields.',
   errorTitle: 'Prediction unavailable',
   inputsKept: 'Your values are still in the form. Correct the data or retry the request.',
+  pages: {
+    "tryDemo": "Try the demo",
+    "predict": "Get a prediction",
+    "team": "Team",
+    "teamTitle": "Development team",
+    "login": "Sign in",
+    "home": "Home",
+    "doctorAlt": "Illustrative photo of a doctor holding a tablet",
+    "aiLabel": "AI · educational model",
+    "heroWarning": "Educational project. Does not replace a medical consultation.",
+    "demoIntro": "Enter measurements and explore an educational prediction. Demo mode uses a fixed example.",
+    "realIntro": "Enter measurements and explore an educational prediction. Values are sent to the configured server.",
+    "demoPreview": "Demonstration example",
+    "demoPreviewNote": "Fixed example, not a model result",
+    "limitationsLink": "More about limitations",
+    "inputTitle": "Enter measurements",
+    "fillExample": "Fill example",
+    "clear": "Clear",
+    "clearTitle": "Clear the entered data?",
+    "clearDescription": "Values and the current result will be removed from this form only.",
+    "keep": "Cancel",
+    "newPrediction": "New prediction",
+    "submitted": "Submitted measurements",
+    "unavailable": "The server API for this feature has not been agreed yet. Actions are temporarily unavailable.",
+    "authIntro": "The demo is available without an account. Sign-in and registration will be available after the server API is connected.",
+    "authTitles": {
+      "login": "Sign in to MedPredict",
+      "register": "Create an account",
+      "forgot": "Recover your password",
+      "reset": "New password",
+      "verify": "Verify email",
+      "password": "Change password"
+    },
+    "authActions": {
+      "login": "Sign in",
+      "register": "Register",
+      "forgot": "Get a link",
+      "reset": "Save password",
+      "verify": "Resend email",
+      "password": "Save changes"
+    },
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New password",
+    "currentPassword": "Current password",
+    "confirmPassword": "Confirm password",
+    "passwordHint": "Password requirements will be supplied by the server.",
+    "forgotPassword": "Forgot password?",
+    "register": "Create an account",
+    "backToLogin": "Back to sign-in",
+    "verifyDescription": "Checking a link and sending an email require a connected server.",
+    "account": "Account",
+    "accountAccess": "Account access",
+    "accountEmail": "Email will be available after sign-in.",
+    "logout": "Sign out",
+    "history": "Prediction history",
+    "historyDescription": "Only records saved with explicit consent. Demonstration predictions are not saved.",
+    "historyUnavailable": "History is not available yet",
+    "openHistory": "Open history",
+    "deleteAccount": "Delete account",
+    "deleteDescription": "Deletion timelines and confirmation procedures are still being agreed with the server team.",
+    "requestDeletion": "Request deletion",
+    "confirmDeletion": "Confirm request",
+    "clearHistory": "Clear history",
+    "savedResult": "Saved prediction",
+    "saveHistory": "Save to history",
+    "consent": "I agree to save this prediction in history",
+    "model": "About the model",
+    "modelIntro": "Model parameters require confirmation from the team. No numerical metrics have been invented.",
+    "modelRows": [
+      [
+        "Target measurement",
+        "Systolic blood pressure — preliminary example"
+      ],
+      [
+        "Dataset",
+        "Awaiting confirmation"
+      ],
+      [
+        "Intended population",
+        "Awaiting confirmation"
+      ],
+      [
+        "Model version",
+        "Supplied by the server if available"
+      ],
+      [
+        "Evaluation method",
+        "Awaiting confirmation"
+      ],
+      [
+        "Metrics",
+        "Awaiting confirmation"
+      ],
+      [
+        "Ranges and categories",
+        "Only the agreed server configuration"
+      ],
+      [
+        "Limitations",
+        "Educational project, not a diagnosis"
+      ]
+    ],
+    "limitations": "Educational project limitations",
+    "privacy": "Privacy",
+    "terms": "Terms of use",
+    "privacyText": "Form measurements are not stored in localStorage, sessionStorage, frontend logs or analytics. Real mode sends values to the configured server. History, retention, access, deletion and server logs require separate agreement. This is a draft policy.",
+    "termsText": "The project is for learning and demonstrating the interface. Do not use its results for medical decisions. Access terms and the service provider have not yet been approved.",
+    "notFound": "Page not found",
+    "notFoundText": "The link may be outdated or the address may be incorrect."
+  },
   validation: {
     required: 'Fill in this required field.',
     number: 'Enter a number, for example 27.4. Letters and other characters are not allowed.',
