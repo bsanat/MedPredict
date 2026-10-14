@@ -6,6 +6,7 @@ import { translateMessage, type Language } from '../i18n';
 import { formatPrediction } from '../validation';
 import { Icon } from './Icon';
 import type { Report } from '../pdf/report';
+import { UnavailableNotice } from './UnavailableNotice';
 
 function PdfDownload({ report, copy }: { report: Report; copy: Copy }) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
@@ -57,16 +58,17 @@ interface Props {
   demo: boolean;
   onEdit: () => void;
   onCancel: () => void;
+  onNew: () => void;
 }
 
-export function ResultPanel({ state, copy, language, model, demo, onEdit, onCancel }: Props) {
+export function ResultPanel({ state, copy, language, model, demo, onEdit, onCancel, onNew }: Props) {
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     if (state.status === 'success') heading.current?.focus();
   }, [state.status]);
 
   return <section className={`result-panel panel ${state.status === 'error' ? 'result-error' : ''}`} aria-labelledby="result-heading" aria-busy={state.status === 'loading'}>
-    <div className="section-heading"><span className="section-number" aria-hidden="true">02</span><h2 id="result-heading">{copy.resultTitle}</h2></div>
+    <div className="section-heading"><Icon name="chart" /><h2 id="result-heading">{copy.resultTitle}</h2></div>
     <div className="result-content" aria-live="polite" aria-atomic="true">
       {state.status === 'success' && model ? <div className="success-result">
         {demo && <p className="result-tag">{copy.demoResult}</p>}
@@ -77,8 +79,20 @@ export function ResultPanel({ state, copy, language, model, demo, onEdit, onCanc
         <div className="result-disclaimer"><Icon name="info" /><p>{copy.disclaimer}.
           {!demo && state.result.disclaimer && state.result.disclaimer !== copy.disclaimer && <span className="server-disclaimer">{state.result.disclaimer}</span>}
         </p></div>
-        <button className="button button-secondary" type="button" onClick={onEdit}><Icon name="edit" />{copy.edit}</button>
+        <div className="actions"><button className="button button-secondary" type="button" onClick={onEdit}><Icon name="edit" />{copy.edit}</button>
+          <button className="button button-secondary" type="button" onClick={onNew}>{copy.pages.newPrediction}</button></div>
         <PdfDownload key={language} copy={copy} report={{ model, result: state.result, input: state.input, demo, language }} />
+        <details className="submitted-input"><summary>{copy.pages.submitted}</summary><dl>
+          {model.fields.filter((field) => state.input[field.key] !== undefined).map((field) => <div key={field.key}>
+            <dt>{field.label}</dt><dd>{field.type === 'select'
+              ? field.options.find((option) => option.value === state.input[field.key])?.label
+              : `${formatPrediction(Number(state.input[field.key]), null, language)} ${field.unit}`}</dd>
+          </div>)}
+        </dl></details>
+        {!demo && <div className="history-save"><UnavailableNotice copy={copy} id="save-unavailable" />
+          <label className="consent"><input type="checkbox" disabled aria-describedby="save-unavailable" />{copy.pages.consent}</label>
+          <button className="button button-secondary" type="button" disabled aria-describedby="save-unavailable">{copy.pages.saveHistory}</button>
+        </div>}
       </div> : state.status === 'loading' ? <div className="empty-result">
         <div className="spinner" aria-hidden="true" /><h3>{copy.loading}</h3>
         <p>{copy.loadingDescription}</p>

@@ -1,10 +1,112 @@
 import { expect, test } from '@playwright/test';
 import { expectNoOverflow, fillExample } from './helpers';
 
-test('complete demo journey, repeat request and invalidate a stale result', async ({ page }) => {
+test('landing navigation opens prediction and keeps language and entered values across pages', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Прогноз медицинскихпоказателей');
+  await expect(page.locator('.doctor-photo')).toBeVisible();
+  expect(await page.locator('.doctor-photo').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  await expectNoOverflow(page);
+  await page.getByRole('link', { name: 'Попробовать демо', exact: true }).click();
+  await expect(page).toHaveURL(/#\/predict$/);
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  await page.getByRole('button', { name: 'Заполнить пример', exact: true }).click();
+  await expect(page.getByLabel('Возраст')).toHaveValue('52');
+  await page.getByRole('link', { name: 'О модели', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('О модели');
+  await page.locator('.language-picker summary').click();
+  await page.getByRole('button', { name: 'Қазақша', exact: true }).click();
+  await page.getByRole('link', { name: 'Болжам алу', exact: true }).first().click();
+  await expect(page.getByLabel('Жас', { exact: false })).toHaveValue('52');
+  await page.getByRole('link', { name: 'Қалай жұмыс істейді', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Қалай жұмыс істейді', exact: true })).toBeFocused();
+  await page.goBack();
+  await expect(page.getByLabel('Жас', { exact: false })).toHaveValue('52');
+  expect(errors).toEqual([]);
+});
+
+test('clearing asks for confirmation, restores focus and removes the result', async ({ page }) => {
+  await page.goto('/#/predict');
+  await expect(page.getByRole('button', { name: 'Очистить', exact: true })).toBeDisabled();
+  await page.getByRole('button', { name: 'Заполнить пример', exact: true }).click();
+  await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
+  await expect(page.getByText('134,2', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Очистить', exact: true }).click();
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole('button', { name: 'Отмена', exact: true })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(page.getByRole('button', { name: 'Очистить', exact: true })).toBeFocused();
+  await expect(page.getByLabel('Возраст')).toHaveValue('52');
+  await page.getByRole('button', { name: 'Очистить', exact: true }).click();
+  await dialog.getByRole('button', { name: 'Очистить', exact: true }).click();
+  await expect(page.getByLabel('Возраст')).toHaveValue('');
+  await expect(page.getByText('134,2', { exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Заполнить пример', exact: true }).click();
+  await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
+  await expect(page.getByText('134,2', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Новый прогноз', exact: true }).click();
+  await expect(page.getByLabel('Возраст')).toHaveValue('');
+  await expect(page.getByLabel('Возраст')).toBeFocused();
+});
+
+test('all migrated pages render and unavailable account actions never simulate success', async ({ page }) => {
+  const errors: string[] = [];
+  const requests: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  page.on('request', (request) => { if (request.method() !== 'GET') requests.push(request.url()); });
+  for (const route of ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email', '/account/password', '/account', '/account/delete', '/history', '/history/example', '/model', '/limitations', '/privacy', '/terms', '/missing']) {
+    await page.goto(`/#${route}`);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.locator('vite-error-overlay')).toHaveCount(0);
+    await expectNoOverflow(page);
+    if (route.startsWith('/account') || route.startsWith('/history') || ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'].includes(route)) {
+      await expect(page.getByText('Серверный API для этой возможности ещё не согласован. Действия временно недоступны.', { exact: true })).toBeVisible();
+      const buttons = page.locator('#main button');
+      for (const button of await buttons.all()) await expect(button).toBeDisabled();
+      for (const input of await page.locator('#main input').all()) await expect(input).toBeDisabled();
+    }
+  }
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Страница не найдена');
+  await page.getByRole('link', { name: 'На главную', exact: true }).click();
+  await expect(page.locator('.doctor-photo')).toBeVisible();
+  expect(requests).toEqual([]);
+  expect(errors).toEqual([]);
+  expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
+});
+
+test('leaving an in-flight prediction cancels it while retaining form input', async ({ page }) => {
+  await page.goto('/#/predict');
+  await fillExample(page);
+  await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
+  await page.getByRole('link', { name: 'Войти', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Вход в MedPredict');
+  await page.waitForTimeout(1100);
+  await page.goBack();
+  await expect(page.getByLabel('Возраст')).toHaveValue('52');
+  await expect(page.getByText('134,2', { exact: true })).toHaveCount(0);
+});
+
+test('long translated headings fit the minimum supported width', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  for (const route of ['/privacy', '/register', '/forgot-password', '/limitations']) {
+    await page.goto(`/#${route}`);
+    for (const language of ['Русский', 'Қазақша', 'English']) {
+      await page.locator('.language-picker summary').click();
+      await page.getByRole('button', { name: language, exact: true }).click();
+      await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+      await expectNoOverflow(page);
+    }
+  }
+});
+
+test('complete demo journey, repeat request and invalidate a stale result', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/#/predict');
   await expect(page).toHaveTitle('MedPredict — учебный прогноз');
   await expect(page.getByText('Демонстрационный режим', { exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
@@ -30,7 +132,7 @@ test('complete demo journey, repeat request and invalidate a stale result', asyn
 });
 
 test('empty required fields and malformed numeric input have linked errors', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/predict');
   await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
   await expect(page.getByText('Заполните обязательное поле.', { exact: true })).toHaveCount(5);
   await expect(page.getByLabel('Возраст')).toBeFocused();
@@ -44,9 +146,10 @@ test('empty required fields and malformed numeric input have linked errors', asy
 });
 
 test('keyboard navigation, submit and edit remain usable', async ({ page }, testInfo) => {
-  await page.goto('/');
-  await page.keyboard.press('Tab');
-  await expect(page.getByRole('link', { name: 'Перейти к основному содержимому' })).toBeFocused();
+  await page.goto('/#/predict');
+  await page.getByRole('link', { name: 'Перейти к основному содержимому' }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#main')).toBeFocused();
   await page.getByRole('button', { name: 'Перейти к форме' }).focus();
   await page.keyboard.press('Enter');
   await expect(page.getByLabel('Возраст')).toBeFocused();
@@ -76,7 +179,7 @@ test('keyboard navigation, submit and edit remain usable', async ({ page }, test
 });
 
 test('cancel and editing in flight never show an old result', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/predict');
   await fillExample(page);
   await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
   await page.getByRole('button', { name: 'Отменить запрос' }).click();
@@ -90,7 +193,7 @@ test('cancel and editing in flight never show an old result', async ({ page }) =
 });
 
 test('language picker translates the demo without losing input, errors or an in-flight result', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/predict');
   const logo = page.locator('.brand').getByRole('img', { name: 'MedPredict', exact: true });
   await expect(logo).toHaveAttribute('src', '/logo.png');
   expect(await logo.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
@@ -145,7 +248,7 @@ test('language picker translates the demo without losing input, errors or an in-
 
 
 test('mobile header keeps the same rows in every language and flags fill their frames', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/predict');
   for (const width of [320, 390, 540, 768, 980]) {
     await page.setViewportSize({ width, height: 844 });
     for (const label of ['Русский', 'Қазақша', 'English']) {
@@ -179,7 +282,7 @@ test('mobile header keeps the same rows in every language and flags fill their f
 
 test('PDF downloads directly, blocks duplicate export, retries asset failure and follows the chosen language', async ({ page }, testInfo) => {
   await page.addInitScript(() => { window.print = () => { throw new Error('Printing must not be called'); }; });
-  await page.goto('/');
+  await page.goto('/#/predict');
   await expect(page.getByRole('button', { name: 'Скачать PDF', exact: true })).toHaveCount(0);
   const logos = page.locator('.project-logos img');
   await expect(logos).toHaveCount(2);
