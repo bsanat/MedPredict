@@ -88,3 +88,91 @@ test('cancel and editing in flight never show an old result', async ({ page }) =
   await page.waitForTimeout(1100);
   await expect(page.getByText('134,2', { exact: true })).toHaveCount(0);
 });
+
+test('language picker translates the demo without losing input, errors or an in-flight result', async ({ page }) => {
+  await page.goto('/');
+  const logo = page.getByRole('img', { name: 'MedPredict', exact: true });
+  await expect(logo).toHaveAttribute('src', '/logo.png');
+  expect(await logo.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  await fillExample(page);
+  await page.getByLabel('Возраст').fill('abc');
+  await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
+  await expect(page.locator('.language-picker summary img')).toHaveAttribute('src', '/flags/ru.svg');
+  await page.getByText('Рус', { exact: true }).click();
+  const flags = page.locator('.language-options img');
+  await expect(flags).toHaveCount(3);
+  expect(await flags.evaluateAll((images) => images.every((image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0))).toBe(true);
+  await expect(page.getByRole('button', { name: 'Русский', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Қазақша', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'kk');
+  await expect(page).toHaveTitle('MedPredict — оқу мақсатындағы болжам');
+  await expect(page.getByLabel('Жас', { exact: false })).toHaveValue('abc');
+  await expect(page.getByText('Сан енгізіңіз, мысалы 27,4. Әріптер мен басқа таңбаларды қолдануға болмайды.', { exact: true })).toBeVisible();
+  await expect(page.getByRole('group', { name: 'Тіл', exact: true })).toBeHidden();
+  await expectNoOverflow(page);
+
+  await page.getByText('Қаз', { exact: true }).click();
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.getByRole('textbox', { name: /^Age/ })).toHaveValue('abc');
+  await expect(page.getByText('Enter a number, for example 27.4. Letters and other characters are not allowed.', { exact: true })).toBeVisible();
+  await page.getByRole('textbox', { name: /^Age/ }).fill('52');
+  await expect(page.getByLabel('Sex', { exact: false })).toHaveValue('male');
+  await page.getByRole('button', { name: 'Get an educational prediction', exact: true }).click();
+  await page.getByText('Eng', { exact: true }).click();
+  await page.getByRole('button', { name: 'Қазақша', exact: true }).click();
+  await expect(page.getByText('134,2', { exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Систолалық қан қысымы', exact: true })).toBeVisible();
+  await expect(page.locator('.prediction-unit')).toHaveText('мм сын. бағ.');
+  await expect(page.locator('.server-disclaimer')).toHaveCount(0);
+
+  await page.getByText('Қаз', { exact: true }).click();
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await expect(page.getByText('134.2', { exact: true })).toBeVisible();
+  await expect(page.locator('.prediction-unit')).toHaveText('mmHg');
+  await expect(page.getByRole('textbox', { name: /^Age/ })).toHaveValue('52');
+  await expectNoOverflow(page);
+  await page.getByText('Eng', { exact: true }).click();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('group', { name: 'Language', exact: true })).toBeHidden();
+  await expect(page.locator('.language-picker summary')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('group', { name: 'Language', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'MedPredict — home', exact: true }).click();
+  await expect(page.getByRole('group', { name: 'Language', exact: true })).toBeHidden();
+  expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
+});
+
+
+test('mobile header keeps the same rows in every language and flags fill their frames', async ({ page }) => {
+  await page.goto('/');
+  for (const width of [320, 390, 540, 768, 980]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const label of ['Русский', 'Қазақша', 'English']) {
+      await page.locator('.language-picker summary').click();
+      await page.getByRole('button', { name: label, exact: true }).click();
+      const layout = await page.locator('.header-inner').evaluate((header) => {
+        const rect = (selector: string) => header.querySelector(selector)!.getBoundingClientRect();
+        const brand = rect('.brand');
+        const picker = rect('.language-picker');
+        const nav = rect('nav');
+        const mode = rect('.mode-label');
+        return {
+          sameRow: Math.abs((brand.top + brand.bottom) / 2 - (picker.top + picker.bottom) / 2) < 1,
+          separated: brand.right <= picker.left,
+          navBelow: nav.top >= Math.max(brand.bottom, picker.bottom),
+          modeBelow: mode.top >= nav.bottom,
+          linksOnOneLine: [...header.querySelectorAll('nav a')].every((link) => link.getBoundingClientRect().height < 30),
+        };
+      });
+      expect(layout).toEqual({ sameRow: true, separated: true, navBelow: true, modeBelow: true, linksOnOneLine: true });
+      await expectNoOverflow(page);
+    }
+  }
+  for (const flag of ['ru', 'kz', 'gb']) {
+    const response = await page.request.get(`/flags/${flag}.svg`);
+    expect(response.ok()).toBe(true);
+    expect(await response.text()).toMatch(/<svg[^>]+preserveAspectRatio="none"/);
+    expect(await response.text()).toMatch(/<svg[^>]+viewBox=/);
+  }
+});
