@@ -100,3 +100,27 @@ test('only server-supplied ranges and changed field configuration are used', asy
   await expect(page.getByRole('heading', { name: 'Другой прогноз', exact: true })).toBeVisible();
   await expect(page.getByText('3,00', { exact: true })).toBeVisible();
 });
+
+test('real PDF exports the existing response without another prediction or demo fallback', async ({ page }, testInfo) => {
+  let requests = 0;
+  await page.addInitScript(() => { window.print = () => { throw new Error('Printing must not be called'); }; });
+  await page.route('**/api/v1/predictions', (route) => {
+    requests++;
+    return route.fulfill({ json: { predictedValue: 141.98765, unit: 'мм рт. ст.' } });
+  });
+  await page.goto('/');
+  await fillExample(page);
+  await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
+  await expect(page.getByText('141,98765', { exact: true })).toBeVisible();
+  for (let index = 0; index < 2; index++) {
+    const pending = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Скачать PDF', exact: true }).click();
+    const download = await pending;
+    await download.saveAs(testInfo.outputPath(`report-real-${index}.pdf`));
+    expect(await download.failure()).toBeNull();
+  }
+  expect(requests).toBe(1);
+  await expect(page.locator('.model-version')).toHaveCount(0);
+  await page.getByLabel('Возраст').fill('53');
+  await expect(page.getByRole('button', { name: 'Скачать PDF', exact: true })).toHaveCount(0);
+});

@@ -1,0 +1,19 @@
+:root {
+  --background: #ffffff;
+  --surface: #f5f7fa;
+  --text: #20242b;
+  --text-muted: #60656e;
+  --primary: #183b78;
+  --primary-hover: #0c215a;
+  --on-primary: #ffffff;
+  --accent: #4ba4a4;
+  --accent-surface: #eaf5f5;
+  --border: #e0e2e6;
+  --input-border: #8a94a3;
+  --error: #c0262d;
+  --error-surface: #fff4f4;
+  --warning: #b45309;
+  --warning-surface: #fff8eb;
+  --success: #157a4b;
+  --success-surface: #eff8f2;
+}
