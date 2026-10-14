@@ -32,6 +32,6 @@ export function validateInput(values: FormValues, fields: FieldDefinition[]) {
   return { errors, input };
 }
 
-export function formatPrediction(value: number, decimalPlaces: number | null): string {
-  return (decimalPlaces === null ? String(value) : value.toFixed(decimalPlaces)).replace('.', ',');
+export function formatPrediction(value: number, decimalPlaces: number | null, language = 'ru'): string {
+  return (decimalPlaces === null ? String(value) : value.toFixed(decimalPlaces)).replace('.', language === 'en' ? '.' : ',');
 }
