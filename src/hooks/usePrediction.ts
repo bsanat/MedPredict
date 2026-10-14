@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { FormValues, FieldErrors, ModelInfo, Prediction, PredictionApi } from '../types';
+import type { FormValues, FieldErrors, ModelInfo, Prediction, PredictionApi, PredictionInput } from '../types';
 import { configuredApi } from '../config/environment';
 import { ApiError, errorMessage } from '../api/errors';
 import { parsePrediction } from '../api/contract';
@@ -9,7 +9,7 @@ import { validateInput } from '../validation';
 type MetadataState = { status: 'loading' } | { status: 'error'; message: string }
   | { status: 'ready'; model: ModelInfo };
 export type PredictionState = { status: 'idle'; message?: string } | { status: 'loading' }
-  | { status: 'success'; result: Prediction } | { status: 'error'; message: string };
+  | { status: 'success'; result: Prediction; input: PredictionInput } | { status: 'error'; message: string };
 
 export function usePrediction() {
   const [metadata, setMetadata] = useState<MetadataState>({ status: 'loading' });
@@ -71,7 +71,7 @@ export function usePrediction() {
     try {
       const response = await service.current.predict(checked.input, controller.signal);
       if (request.current !== controller || controller.signal.aborted) return;
-      setState({ status: 'success', result: parsePrediction(response, metadata.model.unit) });
+      setState({ status: 'success', result: parsePrediction(response, metadata.model.unit), input: checked.input });
     } catch (error) {
       if (request.current !== controller || controller.signal.aborted) return;
       let message = errorMessage(error);

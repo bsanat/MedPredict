@@ -13,7 +13,7 @@ test('complete demo journey, repeat request and invalidate a stale result', asyn
   await expect(page.getByLabel('Возраст')).toBeFocused();
   await fillExample(page);
   await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
-  await expect(page.getByRole('button', { name: 'Обрабатываем запрос…' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Получить учебный прогноз' })).toBeDisabled();
   await expect(page.getByText('134,2', { exact: true })).toBeVisible();
   await expect(page.getByText('Фиксированный демонстрационный пример')).toBeVisible();
   await expect(page.getByText('Версия демопримера: demo-example')).toBeVisible();
@@ -91,7 +91,7 @@ test('cancel and editing in flight never show an old result', async ({ page }) =
 
 test('language picker translates the demo without losing input, errors or an in-flight result', async ({ page }) => {
   await page.goto('/');
-  const logo = page.getByRole('img', { name: 'MedPredict', exact: true });
+  const logo = page.locator('.brand').getByRole('img', { name: 'MedPredict', exact: true });
   await expect(logo).toHaveAttribute('src', '/logo.png');
   expect(await logo.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
   await fillExample(page);
@@ -175,4 +175,49 @@ test('mobile header keeps the same rows in every language and flags fill their f
     expect(await response.text()).toMatch(/<svg[^>]+preserveAspectRatio="none"/);
     expect(await response.text()).toMatch(/<svg[^>]+viewBox=/);
   }
+});
+
+test('PDF downloads directly, blocks duplicate export, retries asset failure and follows the chosen language', async ({ page }, testInfo) => {
+  await page.addInitScript(() => { window.print = () => { throw new Error('Printing must not be called'); }; });
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Скачать PDF', exact: true })).toHaveCount(0);
+  const logos = page.locator('.project-logos img');
+  await expect(logos).toHaveCount(2);
+  expect(await logos.evaluateAll((images) => images.every((image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0))).toBe(true);
+  await expect(page.getByText('Учебный проект студентов Astana IT University', { exact: true })).toBeVisible();
+  await expect(page.getByText('Astana IT University студенттерінің оқу жобасы', { exact: true })).toBeVisible();
+  await fillExample(page);
+  await page.getByRole('button', { name: 'Получить учебный прогноз' }).click();
+  await expect(page.getByText('134,2', { exact: true })).toBeVisible();
+  let fail = true;
+  let fontWaiting = false;
+  let release: () => void = () => {};
+  await page.route('**/fonts/NotoSans-Regular.ttf', async (route) => {
+    if (fail) return route.fulfill({ status: 503, body: 'Unavailable' });
+    fontWaiting = true;
+    await new Promise<void>((resolve) => { release = resolve; });
+    await route.continue();
+  });
+  await page.getByRole('button', { name: 'Скачать PDF', exact: true }).click();
+  await expect(page.getByRole('alert')).toContainText('Не удалось подготовить PDF');
+  fail = false;
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Скачать PDF', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Скачать PDF', exact: true })).toBeDisabled();
+  await expect(page.locator('.pdf-status')).toHaveText('Подготавливаем PDF…');
+  await expect.poll(() => fontWaiting).toBe(true);
+  release();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toMatch(/^medpredict-report-\d{4}-\d{2}-\d{2}-\d{4}\.pdf$/);
+  await download.saveAs(testInfo.outputPath('report-ru.pdf'));
+  expect(await download.failure()).toBeNull();
+  await expect(page.getByRole('button', { name: 'Скачать PDF', exact: true })).toBeEnabled();
+  await page.unroute('**/fonts/NotoSans-Regular.ttf');
+  await page.getByText('Рус', { exact: true }).click();
+  await page.getByRole('button', { name: 'Қазақша', exact: true }).click();
+  const repeatPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'PDF жүктеу', exact: true }).click();
+  await (await repeatPromise).saveAs(testInfo.outputPath('report-kk.pdf'));
+  await page.getByLabel('Глюкоза').fill('6');
+  await expect(page.getByRole('button', { name: 'PDF жүктеу', exact: true })).toHaveCount(0);
 });
