@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" width="1320" height="900" viewBox="0 0 1320 900" role="img">
+  <title id="title">Контекст системы MedPredict</title>
+  <desc id="desc">MedPredict. Состояние на 16 октября 2026. Пунктир обозначает планируемые компоненты или согласуемое взаимодействие.</desc>
+  <rect width="1320" height="900" fill="white" />
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+  </defs>
+  <text font-family="Arial, sans-serif" font-size="26" text-anchor="start" font-weight="bold" x="40" y="45" fill="#172033">
+    <tspan x="40" dy="0">Контекст системы MedPredict</tspan>
+  </text>
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="start" font-weight="normal" x="40" y="77" fill="#172033">
+    <tspan x="40" dy="0">16 октября 2026 · Сплошная линия — frontend; пунктир — план или согласование</tspan>
+  </text>
+  <circle cx="150.0" cy="308" r="16" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <path stroke-width="2" d="M 150.0 324 V 380 M 118.0 345 H 182.0 M 150.0 380 L 122.0 415 M 150.0 380 L 178.0 415" fill="none" stroke="#64748b" />
+  <text font-family="Arial, sans-serif" font-size="17" text-anchor="middle" font-weight="normal" x="150.0" y="445" fill="#172033">
+    <tspan x="150.0" dy="0">Исследователь /</tspan>
+    <tspan x="150.0" dy="25">участник демо</tspan>
+  </text>
+  <rect x="410" y="250" width="470" height="220" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="645.0" y="330.0" fill="#172033">
+    <tspan x="645.0" dy="0">MedPredict — учебный прототип</tspan>
+    <tspan x="645.0" dy="25">Frontend: готов</tspan>
+    <tspan x="645.0" dy="25">Backend и модель: план</tspan>
+    <tspan x="645.0" dy="25">Демо: фиксированный пример</tspan>
+  </text>
+  <rect x="1010" y="130" width="270" height="145" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" stroke-dasharray="8 6" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="1145.0" y="184.5" fill="#172033">
+    <tspan x="1145.0" dy="0">Обезличенные данные</tspan>
+    <tspan x="1145.0" dy="25">Источник и права</tspan>
+    <tspan x="1145.0" dy="25">ещё не утверждены</tspan>
+  </text>
+  <circle cx="550.0" cy="618" r="16" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <path stroke-width="2" d="M 550.0 634 V 690 M 518.0 655 H 582.0 M 550.0 690 L 522.0 725 M 550.0 690 L 578.0 725" fill="none" stroke="#64748b" />
+  <text font-family="Arial, sans-serif" font-size="17" text-anchor="middle" font-weight="normal" x="550.0" y="755" fill="#172033">
+    <tspan x="550.0" dy="0">Команда и</tspan>
+    <tspan x="550.0" dy="25">научный руководитель</tspan>
+  </text>
+  <rect x="1010" y="500" width="270" height="115" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="1145.0" y="539.5" fill="#172033">
+    <tspan x="1145.0" dy="0">Локальный PDF</tspan>
+    <tspan x="1145.0" dy="25">Экспорт по действию</tspan>
+    <tspan x="1145.0" dy="25">пользователя</tspan>
+  </text>
+  <path d="M 250 345 L 410 345" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="330" y="327" fill="#172033">
+    <tspan x="330" dy="0">Признаки</tspan>
+  </text>
+  <path d="M 410 415 L 250 415" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="330" y="454" fill="#172033">
+    <tspan x="330" dy="0">Результат / ошибки</tspan>
+  </text>
+  <path d="M 1010 230 L 940 230 L 940 290 L 880 290" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="965" y="343" fill="#172033">
+    <tspan x="965" dy="0">Обучение / оценка</tspan>
+    <tspan x="965" dy="25">вне интерфейса</tspan>
+  </text>
+  <path d="M 880 410 L 945 410 L 945 550 L 1010 550" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="1115" y="460" fill="#172033">
+    <tspan x="1115" dy="0">Снимок результата</tspan>
+  </text>
+  <path d="M 550 600 L 550 470" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="690" y="550" fill="#172033">
+    <tspan x="690" dy="0">Проверка материалов</tspan>
+  </text>
+  <text font-family="Arial, sans-serif" font-size="17" text-anchor="start" font-weight="normal" x="40" y="850" fill="#172033">
+    <tspan x="40" dy="0">Реальные медицинские данные пользователей в demo не собираются. Клиническое применение вне границ проекта.</tspan>
+  </text>
+</svg>
