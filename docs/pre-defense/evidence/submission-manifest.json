@@ -1,0 +1,75 @@
+{
+  "verification_date": "2026-10-17",
+  "timezone": "Asia/Almaty",
+  "predefense_date": "2026-10-24",
+  "document_count": 11,
+  "total_verified_pages": 89,
+  "documents": [
+    {
+      "path": "docs/pre-defense/MedPredict_Architecture.docx",
+      "sha256": "23da665cc8a7fcfe99a8b116336800c1a04473095445d087ff55dab9af2661c9",
+      "bytes": 1053418,
+      "verified_render_pages": 12
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_Existing_Systems_Comparison.docx",
+      "sha256": "3ca9f1469b794d5dd00aabd35dce4e45738f1b2607ba95bf63ff6c81042865b4",
+      "bytes": 47548,
+      "verified_render_pages": 5
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_Literature_Review.docx",
+      "sha256": "88f5e7ed0282221f6cf258f30ed714e6895843d841c0fb53830cdd7ed3286136",
+      "bytes": 62650,
+      "verified_render_pages": 15
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_Project_Management.docx",
+      "sha256": "ac7c98289466b598b31359ab6251e1042d82156ec87220b927514bde5c84888c",
+      "bytes": 48589,
+      "verified_render_pages": 9
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_Project_Proposal.docx",
+      "sha256": "720df80b9b5030708c6d28e1c5af62760bdb96fdada714b6c80e6509456da5d8",
+      "bytes": 45932,
+      "verified_render_pages": 5
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_Requirements_Specification.docx",
+      "sha256": "d8605fc88a3942c7f2065d8c538d1e88d906f7ec7c77deb12e5a86563260e7e7",
+      "bytes": 53186,
+      "verified_render_pages": 10
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_Supervisor_Feedback_Template.docx",
+      "sha256": "064dff7f7e71cc772b0992298192b991328489086fb4d956e9747dcf433eb3a8",
+      "bytes": 40372,
+      "verified_render_pages": 2
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_Technology_Comparison.docx",
+      "sha256": "eb8043aac9c1f86cd67078d68c03d294d121485f224e3430d368c09759a216a3",
+      "bytes": 52179,
+      "verified_render_pages": 8
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_Testing_Evaluation_Plan.docx",
+      "sha256": "679e815883cf218a8b2ca6c142c5eac251ca373de5a597bd7436dc4a48cb18e3",
+      "bytes": 47676,
+      "verified_render_pages": 6
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_UX_Prototype.docx",
+      "sha256": "9d41c92790a8380d883a5f560d72c084da2a673f7d73b1d87391edf88ae68de3",
+      "bytes": 1142076,
+      "verified_render_pages": 12
+    },
+    {
+      "path": "docs/pre-defense/MedPredict_User_Research.docx",
+      "sha256": "0fc4795a95e736293d8f3ef5a623057216c9ef29b08a9b492c9f59c3bd076a80",
+      "bytes": 46046,
+      "verified_render_pages": 5
+    }
+  ]
+}
