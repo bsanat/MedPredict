@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" version="24.7.17" compressed="false">
+  <diagram id="context" name="Контекст системы MedPredict">
+    <mxGraphModel dx="1320" dy="900" grid="1" gridSize="10" page="1" pageWidth="1320" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="user" value="Исследователь /&#10;участник демо" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;shape=umlActor;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="50" y="290" width="200" height="210" />
+        </mxCell>
+        <mxCell id="system" value="MedPredict — учебный прототип&#10;Frontend: готов&#10;Backend и модель: план&#10;Демо: фиксированный пример" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="250" width="470" height="220" />
+        </mxCell>
+        <mxCell id="data" value="Обезличенные данные&#10;Источник и права&#10;ещё не утверждены" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1010" y="130" width="270" height="145" />
+        </mxCell>
+        <mxCell id="team" value="Команда и&#10;научный руководитель" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;shape=umlActor;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="450" y="600" width="200" height="210" />
+        </mxCell>
+        <mxCell id="pdf" value="Локальный PDF&#10;Экспорт по действию&#10;пользователя" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1010" y="500" width="270" height="115" />
+        </mxCell>
+        <mxCell id="edge0" value="Признаки" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;" edge="1" source="user" target="system" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" value="Результат / ошибки" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;" edge="1" source="system" target="user" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="Обучение / оценка&#10;вне интерфейса" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;dashed=1;" edge="1" source="data" target="system" parent="1">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="940" y="230" />
+              <mxPoint x="940" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge3" value="Снимок результата" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;" edge="1" source="system" target="pdf" parent="1">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="945" y="410" />
+              <mxPoint x="945" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge4" value="Проверка материалов" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;dashed=1;" edge="1" source="team" target="system" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note0" value="Реальные медицинские данные пользователей в demo не собираются. Клиническое применение вне границ проекта." style="text;html=0;whiteSpace=wrap;align=left;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="830" width="1150" height="35" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
