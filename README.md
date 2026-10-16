@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  React · TypeScript · Vite · jsPDF<br />
+  React · TypeScript · Vite <br />
   Қазақша · Русский · English
 </p>
 
