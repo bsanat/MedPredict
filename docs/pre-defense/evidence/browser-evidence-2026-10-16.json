@@ -1,0 +1,86 @@
+{
+  "captureDate": "16.10.2026",
+  "timezone": "Asia/Almaty",
+  "browser": "Chromium 156.0.8078.4",
+  "mode": "demo success",
+  "inputs": "synthetic bundled example",
+  "checks": [
+    {
+      "name": "01-home-desktop",
+      "url": "http://127.0.0.1:4183/",
+      "title": "MedPredict — учебный прогноз",
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "overflow": false
+    },
+    {
+      "name": "02-prediction-empty",
+      "url": "http://127.0.0.1:4183/#/predict",
+      "title": "MedPredict — учебный прогноз",
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "overflow": false
+    },
+    {
+      "name": "03-validation",
+      "url": "http://127.0.0.1:4183/#/predict",
+      "title": "MedPredict — учебный прогноз",
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "overflow": false
+    },
+    {
+      "name": "04-fixed-demo-result",
+      "url": "http://127.0.0.1:4183/#/predict",
+      "title": "MedPredict — учебный прогноз",
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "overflow": false
+    },
+    {
+      "name": "05-login-disabled",
+      "url": "http://127.0.0.1:4183/#/login",
+      "title": "MedPredict — учебный прогноз",
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "overflow": false
+    },
+    {
+      "name": "06-history-unavailable",
+      "url": "http://127.0.0.1:4183/#/history",
+      "title": "MedPredict — учебный прогноз",
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "overflow": false
+    },
+    {
+      "name": "07-prediction-mobile",
+      "url": "http://127.0.0.1:4183/#/predict",
+      "title": "MedPredict — учебный прогноз",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "post": [],
+  "storage": {
+    "localStorage": 0,
+    "sessionStorage": 0
+  }
+}
