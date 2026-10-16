@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" version="24.7.17" compressed="false">
+  <diagram id="components" name="Предварительная диаграмма компонентов MedPredict">
+    <mxGraphModel dx="1320" dy="900" grid="1" gridSize="10" page="1" pageWidth="1320" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="browser" value="Браузер — реализованный frontend" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;verticalAlign=top;align=left;fillColor=none;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="110" width="760" height="640" />
+        </mxCell>
+        <mxCell id="pages" value="App, pages, components&#10;RU / KK / EN" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="180" width="280" height="85" />
+        </mxCell>
+        <mxCell id="nav" value="useNavigation&#10;Hash-маршруты" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="455" y="180" width="285" height="85" />
+        </mxCell>
+        <mxCell id="flow" value="usePrediction&#10;Ввод, состояние, отмена&#10;защита от позднего ответа" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="350" width="280" height="100" />
+        </mxCell>
+        <mxCell id="validation" value="validation.ts + contract.ts&#10;Проверка ввода&#10;и внешних ответов" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="455" y="350" width="285" height="100" />
+        </mxCell>
+        <mxCell id="api" value="config/environment.ts&#10;PredictionApi&#10;demo.ts: демопример&#10;http.ts: fetch, timeout" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="545" width="280" height="145" />
+        </mxCell>
+        <mxCell id="pdf" value="pdf/report.ts&#10;Локальные шрифты и логотипы&#10;Скачивание PDF" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="455" y="565" width="285" height="100" />
+        </mxCell>
+        <mxCell id="backend" value="Java / Spring Boot — план&#10;GET /api/v1/model/info&#10;POST /api/v1/predictions&#10;Валидация, политика данных" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="950" y="480" width="320" height="130" />
+        </mxCell>
+        <mxCell id="model" value="Модель — план&#10;Target, данные, версия&#10;обучение и оценка" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="950" y="220" width="320" height="130" />
+        </mxCell>
+        <mxCell id="edge0" value="" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;" edge="1" source="pages" target="nav" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" value="События / состояние" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;" edge="1" source="pages" target="flow" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="Проверка" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;" edge="1" source="flow" target="validation" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" value="Запрос / отмена" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;" edge="1" source="flow" target="api" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" value="Результат + снимок" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;" edge="1" source="flow" target="pdf" parent="1">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="435" />
+              <mxPoint x="400" y="615" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge5" value="HTTP / JSON · контракт согласуется" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;dashed=1;" edge="1" source="api" target="backend" parent="1">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="845" y="665" />
+              <mxPoint x="845" y="545" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge6" value="Вызов модели&#10;способ не выбран" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;dashed=1;" edge="1" source="backend" target="model" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note0" value="Demo использует локальный адаптер и не отправляет показатели серверу. Сервер и модель отсутствуют в репозитории." style="text;html=0;whiteSpace=wrap;align=left;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="793" width="1150" height="35" />
+        </mxCell>
+        <mxCell id="note1" value="Постоянное хранилище и auth не спроектированы. Ввод хранится в памяти React, результат сбрасывается при переходе." style="text;html=0;whiteSpace=wrap;align=left;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="828" width="1150" height="35" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

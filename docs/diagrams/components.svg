@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" width="1320" height="900" viewBox="0 0 1320 900" role="img">
+  <title id="title">Предварительная диаграмма компонентов MedPredict</title>
+  <desc id="desc">MedPredict. Состояние на 16 октября 2026. Пунктир обозначает планируемые компоненты или согласуемое взаимодействие.</desc>
+  <rect width="1320" height="900" fill="white" />
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+  </defs>
+  <text font-family="Arial, sans-serif" font-size="26" text-anchor="start" font-weight="bold" x="40" y="45" fill="#172033">
+    <tspan x="40" dy="0">Предварительная диаграмма компонентов MedPredict</tspan>
+  </text>
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="start" font-weight="normal" x="40" y="77" fill="#172033">
+    <tspan x="40" dy="0">16 октября 2026 · Сплошная линия — frontend; пунктир — план или согласование</tspan>
+  </text>
+  <rect x="30" y="110" width="760" height="640" rx="0" stroke="#64748b" stroke-width="2" fill="none" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="start" font-weight="bold" x="48" y="138" fill="#172033">
+    <tspan x="48" dy="0">Браузер — реализованный frontend</tspan>
+  </text>
+  <rect x="65" y="180" width="280" height="85" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="205.0" y="216.5" fill="#172033">
+    <tspan x="205.0" dy="0">App, pages, components</tspan>
+    <tspan x="205.0" dy="25">RU / KK / EN</tspan>
+  </text>
+  <rect x="455" y="180" width="285" height="85" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="597.5" y="216.5" fill="#172033">
+    <tspan x="597.5" dy="0">useNavigation</tspan>
+    <tspan x="597.5" dy="25">Hash-маршруты</tspan>
+  </text>
+  <rect x="65" y="350" width="280" height="100" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="205.0" y="382.0" fill="#172033">
+    <tspan x="205.0" dy="0">usePrediction</tspan>
+    <tspan x="205.0" dy="25">Ввод, состояние, отмена</tspan>
+    <tspan x="205.0" dy="25">защита от позднего ответа</tspan>
+  </text>
+  <rect x="455" y="350" width="285" height="100" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="597.5" y="382.0" fill="#172033">
+    <tspan x="597.5" dy="0">validation.ts + contract.ts</tspan>
+    <tspan x="597.5" dy="25">Проверка ввода</tspan>
+    <tspan x="597.5" dy="25">и внешних ответов</tspan>
+  </text>
+  <rect x="65" y="545" width="280" height="145" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="205.0" y="587.5" fill="#172033">
+    <tspan x="205.0" dy="0">config/environment.ts</tspan>
+    <tspan x="205.0" dy="25">PredictionApi</tspan>
+    <tspan x="205.0" dy="25">demo.ts: демопример</tspan>
+    <tspan x="205.0" dy="25">http.ts: fetch, timeout</tspan>
+  </text>
+  <rect x="455" y="565" width="285" height="100" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="597.5" y="597.0" fill="#172033">
+    <tspan x="597.5" dy="0">pdf/report.ts</tspan>
+    <tspan x="597.5" dy="25">Локальные шрифты и логотипы</tspan>
+    <tspan x="597.5" dy="25">Скачивание PDF</tspan>
+  </text>
+  <rect x="950" y="480" width="320" height="130" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" stroke-dasharray="8 6" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="1110.0" y="515.0" fill="#172033">
+    <tspan x="1110.0" dy="0">Java / Spring Boot — план</tspan>
+    <tspan x="1110.0" dy="25">GET /api/v1/model/info</tspan>
+    <tspan x="1110.0" dy="25">POST /api/v1/predictions</tspan>
+    <tspan x="1110.0" dy="25">Валидация, политика данных</tspan>
+  </text>
+  <rect x="950" y="220" width="320" height="130" rx="12" stroke="#64748b" stroke-width="2" fill="#f8fafc" stroke-dasharray="8 6" />
+  <text font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="normal" x="1110.0" y="267.0" fill="#172033">
+    <tspan x="1110.0" dy="0">Модель — план</tspan>
+    <tspan x="1110.0" dy="25">Target, данные, версия</tspan>
+    <tspan x="1110.0" dy="25">обучение и оценка</tspan>
+  </text>
+  <path d="M 345 220 L 455 220" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 205 265 L 205 350" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="305" y="312" fill="#172033">
+    <tspan x="305" dy="0">События / состояние</tspan>
+  </text>
+  <path d="M 345 400 L 455 400" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="400" y="382" fill="#172033">
+    <tspan x="400" dy="0">Проверка</tspan>
+  </text>
+  <path d="M 205 450 L 205 545" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="320" y="499" fill="#172033">
+    <tspan x="320" dy="0">Запрос / отмена</tspan>
+  </text>
+  <path d="M 345 435 L 400 435 L 400 615 L 455 615" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="558" y="514" fill="#172033">
+    <tspan x="558" dy="0">Результат + снимок</tspan>
+  </text>
+  <path d="M 345 665 L 845 665 L 845 545 L 950 545" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="627" y="700" fill="#172033">
+    <tspan x="627" dy="0">HTTP / JSON · контракт согласуется</tspan>
+  </text>
+  <path d="M 1110 480 L 1110 350" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+  <text font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="normal" x="1000" y="403" fill="#172033">
+    <tspan x="1000" dy="0">Вызов модели</tspan>
+    <tspan x="1000" dy="25">способ не выбран</tspan>
+  </text>
+  <text font-family="Arial, sans-serif" font-size="17" text-anchor="start" font-weight="normal" x="40" y="813" fill="#172033">
+    <tspan x="40" dy="0">Demo использует локальный адаптер и не отправляет показатели серверу. Сервер и модель отсутствуют в репозитории.</tspan>
+  </text>
+  <text font-family="Arial, sans-serif" font-size="17" text-anchor="start" font-weight="normal" x="40" y="848" fill="#172033">
+    <tspan x="40" dy="0">Постоянное хранилище и auth не спроектированы. Ввод хранится в памяти React, результат сбрасывается при переходе.</tspan>
+  </text>
+</svg>

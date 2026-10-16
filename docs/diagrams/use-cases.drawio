@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" version="24.7.17" compressed="false">
+  <diagram id="use-cases" name="Варианты использования MedPredict">
+    <mxGraphModel dx="1320" dy="900" grid="1" gridSize="10" page="1" pageWidth="1320" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boundary" value="MedPredict — граница пользовательского сценария" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;verticalAlign=top;align=left;fillColor=none;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="330" y="110" width="740" height="650" />
+        </mxCell>
+        <mxCell id="user" value="Исследователь /&#10;участник демо" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;shape=umlActor;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="325" width="210" height="220" />
+        </mxCell>
+        <mxCell id="backend" value="«система»&#10;Backend + модель&#10;План" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1110" y="385" width="185" height="140" />
+        </mxCell>
+        <mxCell id="uc1" value="UC-01 Ознакомиться&#10;с назначением и ограничениями" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;ellipse;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="180" width="470" height="90" />
+        </mxCell>
+        <mxCell id="uc2" value="UC-02 Ввести&#10;и проверить данные" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;ellipse;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="330" width="470" height="90" />
+        </mxCell>
+        <mxCell id="uc3" value="UC-03 Запросить&#10;и изучить результат" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;ellipse;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="480" width="470" height="90" />
+        </mxCell>
+        <mxCell id="uc4" value="UC-04 Экспортировать&#10;существующий результат" style="html=0;whiteSpace=wrap;strokeColor=#64748b;fillColor=#f8fafc;fontColor=#172033;fontSize=18;ellipse;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="630" width="470" height="90" />
+        </mxCell>
+        <mxCell id="edge0" value="" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=none;" edge="1" source="user" target="uc1" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" value="" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=none;" edge="1" source="user" target="uc2" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=none;" edge="1" source="user" target="uc3" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" value="" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=none;" edge="1" source="user" target="uc4" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" value="«include»" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=block;dashed=1;" edge="1" source="uc3" target="uc2" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" value="" style="edgeStyle=none;html=0;strokeColor=#475569;fontSize=16;labelBackgroundColor=#ffffff;endArrow=none;dashed=1;" edge="1" source="uc3" target="backend" parent="1">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1030" y="525" />
+              <mxPoint x="1030" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note0" value="UC-03: в demo отвечает локальный адаптер; в real требуется согласованный API." style="text;html=0;whiteSpace=wrap;align=left;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="793" width="1150" height="35" />
+        </mxCell>
+        <mxCell id="note1" value="UC-04: предусловие — успешный результат. Auth и история отключены и не входят в обязательный сценарий." style="text;html=0;whiteSpace=wrap;align=left;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="828" width="1150" height="35" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
