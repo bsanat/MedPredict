@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  React · TypeScript · Vite · jsPDF<br />
+  React · TypeScript · Vite <br />
   Қазақша · Русский · English
 </p>
 
@@ -102,9 +102,9 @@ MedPredict — дипломный проект студентов **Astana IT Un
 Нужны **Node.js 22.12+** и **npm**.
 
 ```sh
-git clone https://github.com/juniorqazaq/MedPredict.git
+git clone https://github.com/bsanat/MedPredict.git
 cd MedPredict
-git switch figma-design
+git switch main
 npm ci
 npm run dev
 ```
@@ -241,7 +241,7 @@ docs/           API, UX, дизайн и отчёты о проверках
 | [Sanat](https://github.com/juniorqazaq/MedPredict/tree/Sanat) | Базовый frontend: один экран, три языка, API-адаптер, PDF и общие визуальные ресурсы |
 | [figma-design](https://github.com/juniorqazaq/MedPredict/tree/figma-design) | Расширение дизайна: отдельные страницы, общий layout, навигация и интерфейсы аккаунта/истории |
 
-Этот README описывает ветку **`figma-design`**.
+Этот README описывает ветку **`main`**.
 
 ## Материалы и ресурсы
 
